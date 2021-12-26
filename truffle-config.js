@@ -8,7 +8,7 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 7545,
+      port: 7545, // ganache running port
       network_id: "*" // Match any network id
     },
     ropsten: {
@@ -23,7 +23,7 @@ module.exports = {
       network_id: 3
     }
   },
-  contracts_directory: './src/contracts/',
+  contracts_directory: './src/contracts/', // from here metamask etc knows that wehre to go for smart contracts (can put these outside 'src' folder as well)
   contracts_build_directory: './src/abis/',
   compilers: {
     solc: {
