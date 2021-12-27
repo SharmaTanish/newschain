@@ -5,12 +5,16 @@ require('chai')
   .should()
 
 contract('DVideo', ([deployer, author]) => {
+  
   let dvideo
 
+  //used to declare variables here which to use in tests in describe block like we do in plsql type
   before(async () => {
     dvideo = await DVideo.deployed()
   })
 
+
+  //write tests here
   describe('deployment', async () => {
     it('deploys successfully', async () => {
       const address = await dvideo.address

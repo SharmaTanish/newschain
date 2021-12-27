@@ -8,7 +8,7 @@ contract DVideo {
 
   //Create id=>struct mapping
   //2. store the video , also help in 4. list the videos
-  mapping(uint => Video) public videos;
+  mapping(uint => Video) public videos; // like python dictionary (uint[] public arr --> array)
 
 
   //Create Struct
