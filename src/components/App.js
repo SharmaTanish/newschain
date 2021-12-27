@@ -122,7 +122,7 @@ class App extends Component {
     // add to ipfs... using connection to ipfs by library (ipfs-http-client') we impoerted above using npm
     
     // using ipfs.add(file,callback) !! that's it
-  
+    this.setState({loading:true});
     ipfs.add(this.state.buffer,(error,result) =>{
       //result will have hash of the uploaded video!
       //put on blockchain... --> It is 2 step process , 1st pass the file to ipfs, then we get the hash back and now 2nd then we put this hash inside the smart contarct, i.e., save it to the blockchain (mapping)
@@ -135,7 +135,6 @@ class App extends Component {
         return;
       }
 
-      this.setState({loading:true});
 
       this.state.dvideo.methods.uploadVideo(result[0].hash, title).send({from : this.state.account}).on('transactionHash', (hash) => {
         this.setState({loading:false});
