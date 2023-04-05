@@ -5,9 +5,16 @@ import Main from './Main'
 import Web3 from 'web3';
 import './App.css';
 
-//Declare IPFS
-const ipfsClient = require('ipfs-http-client')
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
+//Declare Infura IPFS
+const ipfsClient = require('ipfs-http-client');
+//Now as Infura API changed so we need to add our auth keys to connect!!
+const auth = 'Basic ' + Buffer.from('2O11x6TMx2kpftvLcXKxQFDhkga' + ':' + 'da2f89ad3257697153c56387793dae84').toString('base64');
+const ipfs = ipfsClient({ host: 'infura-ipfs.io', port: 5001, protocol: 'https' , 
+headers: {
+  authorization:
+    auth,
+},}) // leaving out the arguments will default to these values
+
 
 class App extends Component {
 
@@ -73,7 +80,7 @@ class App extends Component {
           videos:[...this.state.videos,video]
         })
       }
-
+      //these blockchain data (video title etc) is permanent and is showing, just we are not able to play the video becoz the video is on ipfs we are just getting hash from there stored on blockchain and ipfs i am not making my laptop as node and using 3rd party ipfs service providers like infura nodes as my node and uploading data but they make it no longer free thereforeusing other service provider web3.Storage! Nahi nahi yaar.... infura bhi 5 GB storage tak free hai, bas dikkat yeh the ki infura ne APIs update kare the, vo update karne the apne project mai!!!
 
       //see latest video with title to view by default
       const latest = await dvideo.methods.videos(videosCount).call();
@@ -123,13 +130,17 @@ class App extends Component {
     
     // using ipfs.add(file,callback) !! that's it
     this.setState({loading:true});
-    ipfs.add(this.state.buffer,(error,result) =>{
+
+        ipfs.add(this.state.buffer,(error,result) =>{
       //result will have hash of the uploaded video!
       //put on blockchain... --> It is 2 step process , 1st pass the file to ipfs, then we get the hash back and now 2nd then we put this hash inside the smart contarct, i.e., save it to the blockchain (mapping)
 
       console.log(result);//contains ipfs returned hash
-      //https://ipfs.infura.io/ipfs/QmPtqiSvUBLrcu693tApCfTRsbhGApT6jKEfCnFXugJNt5
-
+      //now this one will work (this is dedicated gateway created in infura using chitkara email account) --> https://newschain.infura-ipfs.io/ipfs/QmWeZrZhGF4RZsaFPZEaMuHQBnyRKRqCTT4rYLM3gAudjq
+      //this API no longer supported --> https://ipfs.infura.io/ipfs/QmWeZrZhGF4RZsaFPZEaMuHQBnyRKRqCTT4rYLM3gAudjq
+      //       /infura-ipfs.io/
+      // initially ipfs is free but now you  either have to part of ipfs hosting computer networks or pay for storage on ipfs (peer to peer storage)!
+      // infure, opensea all these are IPFS API's providers.
       if(error){
         console.log(error);
         return;
@@ -142,6 +153,9 @@ class App extends Component {
 
       
     })
+
+
+
   }
 
   //Change Video

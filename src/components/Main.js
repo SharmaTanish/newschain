@@ -12,7 +12,7 @@ class Main extends Component {
           <div className="col-md-10" >
             <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '768px'}}>
               <video
-                src={`https://ipfs.infura.io/ipfs/${this.props.currentHash}`}
+                src={`https://newschain.infura-ipfs.io/ipfs/${this.props.currentHash}`}
                 controls
                 style={{width:'95%'}}
               />
@@ -51,7 +51,7 @@ class Main extends Component {
                   <div>
                     <p onClick={() => this.props.changeVideo(video.hash, video.title)}>
                       <video
-                        src={`https://ipfs.infura.io/ipfs/${video.hash}`}
+                        src={`https://newschain.infura-ipfs.io/ipfs/${video.hash}`}
                         style={{ width: '150px' }}
                       />
                     </p>
